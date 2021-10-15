@@ -1,0 +1,30 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+
+}
+
+ 
+
+
+<div class="row">
+
+    @if (Model.CatalogModel.catalogItems.Any())
+    {
+        @foreach (var item in Model.CatalogModel.catalogItems)
+        {
+            <h4>@item.Name</h4>
+            <p>@item.Description  <span style="color:forestgreen;">@item.Price</span></p>
+        }
+
+    }
+    else
+    {
+
+        <p>There is no row</p>
+    }
+
+
+
+</div>
