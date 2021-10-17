@@ -15,10 +15,12 @@ namespace API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
+        private readonly IMessage _message;
 
-        public UserController(IUserService service)
+        public UserController(IUserService service,IMessage message)
         {
             _service = service;
+            _message = message;
         }
 
         // GET: api/<UserController>
@@ -50,6 +52,25 @@ namespace API.Controllers
                 return NotFound();
             }
             _service.RemoveSubscribedCourse(userId, courseId);
+            return Ok(true);
+        }
+
+
+
+        public IActionResult SendMessage(string message, int userId, Messagetype messageType)
+        {
+            switch (messageType)
+            {
+                case Messagetype.Sms:
+                    _message.Sms(message, userId);
+                    break;
+                case Messagetype.Email:
+                    _message.Email(message, userId);
+
+                    break;
+            }
+
+
             return Ok(true);
         }
     }

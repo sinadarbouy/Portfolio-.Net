@@ -26,7 +26,7 @@ namespace UnitTests.Api
         {
             //Arrange
             var moq = new Mock<IUserService>();
-            UserController apiController = new UserController(moq.Object);
+            UserController apiController = new UserController(moq.Object,null);
             Course course = new Course()
             {
                 Id = 4,
@@ -52,7 +52,7 @@ namespace UnitTests.Api
             moq.Setup(p => p.GetAllCourses(Guid.Empty))
                 .Returns(_moqdata.GetAllUser().Find(x=>x.Id==Guid.Empty).courses);
 
-            UserController apiController = new UserController(moq.Object);
+            UserController apiController = new UserController(moq.Object,null);
 
             //Act
             var result = apiController.DeleteCourse(Guid.Empty,ValidId);
@@ -62,6 +62,23 @@ namespace UnitTests.Api
             Assert.IsType<OkObjectResult>(result);
 
             Assert.IsType<NotFoundResult>(invalidResult);
+        }
+
+
+        [Fact]
+        public void Test_Behavior_SendMessageWithEmail()
+        {
+
+            var moq = new Mock<IMessage>();
+            var moqProduct = new Mock<IUserService>();
+
+            UserController controller = new UserController(moqProduct.Object, moq.Object);
+
+            controller.SendMessage("Hi", 1, Messagetype.Email);
+
+            //moq.Verify(p => p.Sms(It.IsAny<string>(), It.IsAny<int>()),"fail in sending message");
+            moq.Verify(p => p.Email(It.IsAny<string>(), It.IsAny<int>()));
+
         }
 
 
