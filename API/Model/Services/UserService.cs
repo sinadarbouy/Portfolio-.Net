@@ -34,6 +34,11 @@ namespace API.Model.Services
             user.courses.Remove(course);
            
         }
+
+        public void RemoveSubscribedCourse(Guid UserId, int CourseId)
+        {
+            throw new NotImplementedException();
+        }
     }
    
 }
