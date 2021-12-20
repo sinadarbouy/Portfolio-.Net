@@ -14,10 +14,10 @@ namespace Persistence.Contexts
 {
     public class DataBaseContext : DbContext, IDataBaseContext
     {
-        public DataBaseContext(DbContextOptions options) : base(options) { 
+        public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options) { 
         
         }
-        public DbSet<User> Users { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

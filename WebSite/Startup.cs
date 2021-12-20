@@ -31,7 +31,7 @@ namespace WebSite
             
             string connectionSqlServer = Configuration["ConnectionStrings:SqlServer"];
             services.AddDbContext<DataBaseContext>(option => option.UseSqlServer(connectionSqlServer));
-
+            services.AddDbContext<IdentityDatabaseContext>(option => option.UseSqlServer(connectionSqlServer));
             #endregion
         }
 

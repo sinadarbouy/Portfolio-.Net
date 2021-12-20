@@ -10,4 +10,7 @@
 - Add Auditable attribute
 - override OnModelCreating
 - override  SaveChanges
- 
+
+### 3.Add Identity
+- Add new DB context
+- Rename Schema
