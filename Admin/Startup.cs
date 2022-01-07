@@ -1,18 +1,15 @@
-using Infrastructure.IdentityConfigs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Persistence.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebSite
+namespace Admin
 {
     public class Startup
     {
@@ -27,21 +24,6 @@ namespace WebSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-
-            #region Connection String
-            
-            string connectionSqlServer = Configuration["ConnectionStrings:SqlServer"];
-            services.AddDbContext<DataBaseContext>(option => option.UseSqlServer(connectionSqlServer));
-
-            services.AddIdentityService(Configuration);
-            services.AddAuthorization();
-            services.ConfigureApplicationCookie(options => {
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
-                options.LoginPath = "/account/login";
-                options.AccessDeniedPath = "/account/accessDenied";
-                options.SlidingExpiration = true;  
-            });
-            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,10 +45,7 @@ namespace WebSite
 
             app.UseRouting();
 
-            app.UseAuthentication();
-
             app.UseAuthorization();
-
 
             app.UseEndpoints(endpoints =>
             {

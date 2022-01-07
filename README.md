@@ -14,3 +14,4 @@
 ### 3.Add Identity
 - Add new DB context
 - Rename Schema
+- Add identity to endpoint
